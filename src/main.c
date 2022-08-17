@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 08:00:43 by alevasse          #+#    #+#             */
-/*   Updated: 2022/08/16 18:17:35 by Anthony          ###   ########.fr       */
+/*   Updated: 2022/08/17 13:42:11 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,10 @@ int	main(int argc, char **argv, char **envp)
 	pid_t	pid2;
 
 	if (argc != 5)
+	{
+		perror("bash");
 		return (-1);
+	}
 	fd1 = open(argv[1], O_RDONLY );
 	fd2 = open(argv[4], O_WRONLY | O_CREAT, 0777);
 	if (pipe(fd) == -1)

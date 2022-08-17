@@ -111,8 +111,10 @@ int	main(int argc, char **argv, char **envp)
 				}
 				else
 					fd1 = open(argv[1], O_RDONLY);
-				dup2(fd1, STDIN_FILENO);
-				dup2(pipes[1][1], STDOUT_FILENO);
+				if (dup2(fd1, STDIN_FILENO) == -1)
+					return (perror("open/fd1"), 1);
+				if (dup2(pipes[1][1], STDOUT_FILENO) == -1)
+					return (perror("open/fd1"), 2);
 				close(fd1);
 			}
 			else if (i == process - 1)
@@ -121,14 +123,18 @@ int	main(int argc, char **argv, char **envp)
 					fd2 = open(argv[argc - 1], O_WRONLY | O_CREAT | O_APPEND, 0644);
 				else
 					fd2 = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-				dup2(pipes[process - 1][0], STDIN_FILENO);
-				dup2(fd2, STDOUT_FILENO);
-				close(fd2);					
+				if (dup2(pipes[process - 1][0], STDIN_FILENO) == -1)
+					return (perror("open/fd1"), 3);
+				if (dup2(fd2, STDOUT_FILENO) == -1)
+					return (perror("open/fd1"), 4);
+				close(fd2);
 			}
 			else
 			{
-				dup2(pipes[i][0], STDIN_FILENO);
-				dup2(pipes[i + 1][1], STDOUT_FILENO);				
+				if (dup2(pipes[i][0], STDIN_FILENO) == -1)
+					return (perror("open/fd1"), 5);
+				if (dup2(pipes[i + 1][1], STDOUT_FILENO) == -1)			
+					return (perror("open/fd1"), 6);
 			}
 			j = -1;
 			while (++j < process + 1)
@@ -138,7 +144,7 @@ int	main(int argc, char **argv, char **envp)
 				if (i + 1 != j)
 					close(pipes[j][1]);
 			}
-			opt = ft_split(argv[i + 2], ' ');
+			opt = ft_split(argv[i + 2 + heredoc], ' ');
 			cmd = opt[0];
 			cmd_path = ft_chr_path(cmd, envp);
 			if (!cmd_path)
@@ -163,8 +169,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	close(pipes[0][1]);
 	close(pipes[process - 1][0]);
-	close(fd1);
-	close(fd2);
 	i = -1;
 	while (++i < process)
 	{
@@ -176,6 +180,6 @@ int	main(int argc, char **argv, char **envp)
 				strerror(errno);
 		}
 	}
-//	unlink(".here_doc");
+	unlink(".here_doc");
 	return (0);
 }
