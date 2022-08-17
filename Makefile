@@ -3,19 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+         #
+#    By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/10 07:28:53 by alevasse          #+#    #+#              #
-#    Updated: 2022/08/10 07:30:30 by alevasse         ###   ########.fr        #
+#    Updated: 2022/08/15 16:23:24 by Anthony          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 			= pipex
-NAME_B 			= pipex
 
 SRC 			=	src/main.c
 
-SRC_B 			= 
+SRC_B 			=	bonus/main_bonus.c
 
 OBJ 			= ${SRC:.c=.o}
 OBJ_B 			= ${SRC_B:.c=.o}
@@ -44,14 +43,14 @@ all: 			${NAME}
 bonus:			${OBJ_B} ${HEAD}
 				@make all -C ${LIBS}
 				@echo ${GREEN}"Successfully updated 'libft'" ${RESET}
-				@${CC} ${CFLAGS} ${INCLUDE} ${MLX} -o ${NAME_B} ${OBJ_B} ${LIBS}libft.a
-				@echo ${GREEN}"Compiled '${NAME_B}' with success" ${RESET}
+				@${CC} ${CFLAGS} ${INCLUDE} -o ${NAME} ${OBJ_B} ${LIBS}libft.a
+				@echo ${GREEN}"Compiled '${NAME}' with success" ${RESET}
 				@touch bonus
 
 ${NAME}:		${OBJ} ${HEAD}
 				@make all -C ${LIBS}
 				@echo ${GREEN}"Successfully updated 'libft'" ${RESET}
-				@${CC} ${CFLAGS} ${INCLUDE} ${MLX} -o ${NAME} ${OBJ} ${LIBS}libft.a
+				@${CC} ${CFLAGS} ${INCLUDE} -o ${NAME} ${OBJ} ${LIBS}libft.a
 				@echo ${GREEN}"Compiled '${NAME}' with success" ${RESET}
 
 clean:
