@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 08:00:43 by alevasse          #+#    #+#             */
-/*   Updated: 2022/08/19 14:08:57 by Anthony          ###   ########.fr       */
+/*   Updated: 2022/08/22 12:25:35 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_chr_path(char *cmd, char **envp)
 		if (envp_path)
 		{
 			envp_path = ft_substr(envp[i], 5, ft_strlen(envp[i]) - 5);
-			break;
+			break ;
 		}
 	}
 	paths = ft_split(envp_path, ':');
