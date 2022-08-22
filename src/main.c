@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 08:00:43 by alevasse          #+#    #+#             */
-/*   Updated: 2022/08/17 13:42:11 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/08/19 14:08:57 by Anthony          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	main(int argc, char **argv, char **envp)
 	if (argc != 5)
 	{
 		perror("bash");
-		return (-1);
+		exit(EXIT_FAILURE);
 	}
 	fd1 = open(argv[1], O_RDONLY );
 	fd2 = open(argv[4], O_WRONLY | O_CREAT, 0777);
@@ -107,7 +107,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!cmd_path2)
 		{
 			perror("error");
-			return (-1);
+			exit(EXIT_FAILURE);
 		}			
 		execve(cmd_path2, opt2, envp);	
 	}
@@ -117,5 +117,5 @@ int	main(int argc, char **argv, char **envp)
 	close(fd2);
 	waitpid(pid1, NULL, 0);
 	waitpid(pid2, NULL, 0);
-	return (0);
+	exit(EXIT_SUCCESS);
 }

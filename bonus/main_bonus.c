@@ -43,22 +43,25 @@ int	main(int argc, char **argv, char **envp)
 	char	*cmd_path;
 	char	**opt;
 	char	*cmd;
-	char	*line;
+//	char	*line;
 	char	*limiter;
 	int		fd1;
 	int		fd2;
-	int		tmp_fd;
-	int 	pipes[argc - 2][2];
+//	int		tmp_fd;
+	int 	old_pipe[2];
+	int 	new_pipe[2];
 	int		process;
-	int		wstatus;
-	int		status_code;
+//	int		status_code;
 	int		heredoc;
 	int		i;
-	int		j;
-	pid_t	pids[argc - 3];
+//	int		j;
+//	int		err;
+	pid_t	wstatus;
+	pid_t	pid;
+	pid_t	cpid;
 
 	if (argc < 5)
-		return (-1);
+		exit(EXIT_FAILURE);
 	heredoc = 0;
 	process = argc - 3;
 	limiter = argv[2];
@@ -67,119 +70,79 @@ int	main(int argc, char **argv, char **envp)
 		heredoc = 1;
 		process--;
 	}
-	i = -1;
-	while (++i < process + 1)
+	if ((cpid = fork()) == -1)
 	{
-		if (pipe(pipes[i]) == -1)
-		{
-			perror("pipe");
-			return (1);
-		}
+		perror("fork");
+		exit(EXIT_FAILURE);
 	}
-	i = -1;
-	while (++i < process)
+	if (cpid == 0)
 	{
-		pids[i] = fork();
-		if (pids[i] == -1)
+		i = -1;
+		while (++i < process)
 		{
-			perror("pids");
-			return (2);
-		}
-		if (pids[i] == 0)
-		{
-			if (i == 0)
+			if (i + 1 < process)
+				pipe(new_pipe);
+			if ((pid = fork()) == -1)
 			{
-				if (heredoc)
-				{
-					tmp_fd = open(".here_doc", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-					line = "";
-					while (1)
-					{
-						ft_putstr_fd(">", 1);
-						line = get_next_line(STDIN_FILENO);
-						if (line == NULL)
-							break;
-						if (ft_strlen(limiter) + 1 == ft_strlen(line)
-							&& !ft_strncmp(line, limiter, ft_strlen(limiter)))
-							break;
-						else
-							ft_putstr_fd(line, tmp_fd);
-						free(line);
-					}
-					close(tmp_fd);
-					fd1 = open(".here_doc", O_RDONLY);
-				}
-				else
-					fd1 = open(argv[1], O_RDONLY);
-				if (dup2(fd1, STDIN_FILENO) == -1)
-					return (perror("open/fd1"), 1);
-				if (dup2(pipes[1][1], STDOUT_FILENO) == -1)
-					return (perror("open/fd1"), 2);
-				close(fd1);
+				perror("fork");
+				exit(EXIT_FAILURE);
 			}
-			else if (i == process - 1)
+			if (pid == 0)
 			{
-				if (heredoc)
-					fd2 = open(argv[argc - 1], O_WRONLY | O_CREAT | O_APPEND, 0644);
-				else
-					fd2 = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-				if (dup2(pipes[process - 1][0], STDIN_FILENO) == -1)
-					return (perror("open/fd1"), 3);
-				if (dup2(fd2, STDOUT_FILENO) == -1)
-					return (perror("open/fd1"), 4);
-				close(fd2);
+				if (i != 0)
+				{
+					dup2(old_pipe[0], STDIN_FILENO);
+					close (old_pipe[0]);
+					close (old_pipe[1]);
+				}
+				if (i + 1 < process)
+				{
+					close(new_pipe[0]);
+					dup2(new_pipe[1], STDOUT_FILENO);
+					close(new_pipe[1]);
+					opt = ft_split(argv[i + 2 + heredoc], ' ');
+					cmd = opt[0];
+					cmd_path = ft_chr_path(cmd, envp);
+					if (!cmd_path)
+					{
+						perror("error");
+						return (-1);
+					}		
+					if (execve(cmd_path, opt, envp) == -1)
+					{
+						perror("execve");
+						return (0);
+					}
+				}
 			}
 			else
 			{
-				if (dup2(pipes[i][0], STDIN_FILENO) == -1)
-					return (perror("open/fd1"), 5);
-				if (dup2(pipes[i + 1][1], STDOUT_FILENO) == -1)			
-					return (perror("open/fd1"), 6);
-			}
-			j = -1;
-			while (++j < process + 1)
-			{
-				if (i != j)
-					close (pipes[j][0]);
-				if (i + 1 != j)
-					close(pipes[j][1]);
-			}
-			opt = ft_split(argv[i + 2 + heredoc], ' ');
-			cmd = opt[0];
-			cmd_path = ft_chr_path(cmd, envp);
-			if (!cmd_path)
-			{
-				perror("error");
-				return (-1);
-			}		
-			if (execve(cmd_path, opt, envp) == -1)
-			{
-				perror("execve");
-				return (0);
+				waitpid(pid, &wstatus, 0);
+				if (wstatus == -1)
+					exit(1);
+				if (i != 0)
+				{
+					close(old_pipe[0]);
+					close(old_pipe[1]);
+				}
+				if (i + 1 < process)
+				{
+					old_pipe[0] = new_pipe[0];
+					old_pipe[1] = new_pipe[1];
+				}
+				exit(0);
 			}
 		}
-	}
-	j = -1;
-	while (++j < process + 1)
-	{
-		if (j != process)
-			close(pipes[j][0]);
-		if (j != 0)
-			close(pipes[j][1]);
-	}
-	close(pipes[0][1]);
-	close(pipes[process - 1][0]);
-	i = -1;
-	while (++i < process)
-	{
-		waitpid(pids[i], &wstatus, 0);
-		if (WIFEXITED(wstatus))
+		if (i)
 		{
-			status_code = WEXITSTATUS(wstatus);
-			if (status_code != 0)
-				strerror(errno);
+			close(old_pipe[0]);
+			close(old_pipe[1]);
 		}
 	}
-	unlink(".here_doc");
+	else
+	{
+		waitpid(cpid, &wstatus, 0);
+		unlink(".here_doc");
+	}
 	return (0);
 }
