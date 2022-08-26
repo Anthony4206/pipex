@@ -6,7 +6,7 @@
 #    By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/29 07:00:06 by alevasse          #+#    #+#              #
-#    Updated: 2022/08/10 14:52:46 by alevasse         ###   ########.fr        #
+#    Updated: 2022/08/26 10:18:56 by alevasse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ OBJ 			= ${subst ${DIR_SRC}, ${DIR_OBJ}, ${SRC:.c=.o}}
 
 INCLUDE 		= -I./../include
 
-CC 				= gcc
+CC 				= gcc -g
 CFLAGS 			= -Wall -Wextra -Werror
 
 AR 				= ar rcs

@@ -3,25 +3,25 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+         #
+#    By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/10 07:28:53 by alevasse          #+#    #+#              #
-#    Updated: 2022/08/25 22:57:11 by Anthony          ###   ########.fr        #
+#    Updated: 2022/08/26 08:28:01 by alevasse         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 			= pipex
 
-SRC 			=	src/main.c src/ft_path.c
+SRC 			=	src/main.c src/path.c
 
-SRC_B 			=	bonus/main_bonus.c
+SRC_B 			=	bonus/main_bonus.c bonus/close.c bonus/init.c bonus/path.c
 
 OBJ 			= ${SRC:.c=.o}
 OBJ_B 			= ${SRC_B:.c=.o}
 
 INCLUDE 		= -I./include/
 
-HEAD			= include/libft.h include/pipex.h
+HEAD			= include/libft.h src/path.h src/structs.h
 
 LIBS 			= ./libft/
 				

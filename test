@@ -1,0 +1,12 @@
+       0
+total 112
+-rw-r--r--   1 alevasse  2022_nice   2209 Aug 26 08:28 Makefile
+drwxr-xr-x  10 alevasse  2022_nice    340 Aug 26 11:41 bonus
+drwxr-xr-x   3 alevasse  2022_nice    102 Aug 26 08:22 include
+drwxr-xr-x   6 alevasse  2022_nice    204 Aug 26 11:41 libft
+-rwxr-xr-x   1 alevasse  2022_nice  39844 Aug 26 11:42 pipex
+drwxr-xr-x   3 alevasse  2022_nice    102 Aug 26 11:13 pipex.dSYM
+drwxr-xr-x   8 alevasse  2022_nice    272 Aug 26 11:42 src
+-rw-r--r--   1 alevasse  2022_nice      9 Aug 26 11:42 test
+-rw-r--r--   1 alevasse  2022_nice     11 Aug 26 07:20 test1.txt
+-rwxr-xr-x   1 alevasse  2022_nice    574 Aug 26 11:42 test2.txt

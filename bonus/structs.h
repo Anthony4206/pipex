@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_bonus.h                                      :+:      :+:    :+:   */
+/*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/22 10:42:36 by alevasse          #+#    #+#             */
-/*   Updated: 2022/08/25 21:06:06 by Anthony          ###   ########.fr       */
+/*   Created: 2022/08/26 08:06:48 by alevasse          #+#    #+#             */
+/*   Updated: 2022/08/26 10:33:49 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_BONUS_H
-# define PIPEX_BONUS_H
+#ifndef STRUCTS_H
+# define STRUCTS_H
 
-# include "libft.h"
-# include <fcntl.h>
 # include <unistd.h>
-# include <stdlib.h>
-# include <stdio.h>
-# include <sys/wait.h>
-# include <errno.h>
-# include <limits.h>
 
 typedef struct s_data
 {
@@ -32,6 +25,8 @@ typedef struct s_data
 	int		fds[3];
 	int		pipes[3];
 	pid_t	*pids;
+	char	**opts;
+	char	*cmd_path;
 }			t_data;
 
 #endif

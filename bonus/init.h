@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   init.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/23 11:06:30 by alevasse          #+#    #+#             */
-/*   Updated: 2022/08/26 10:19:46 by alevasse         ###   ########.fr       */
+/*   Created: 2022/08/26 08:07:49 by alevasse          #+#    #+#             */
+/*   Updated: 2022/08/26 08:36:06 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef INIT_H
+# define INIT_H
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
-{
-	size_t	i;
+# include "structs.h"
 
-	i = 0;
-	if (dstsize > 0)
-	{
-		while (src[i] && ((i + 1) < dstsize))
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = '\0';
-	}
-	while (src[i])
-		i++;
-	return (i);
-}
+void	ft_get_heredoc(t_data *data);
+t_data	ft_init(int argc, char **argv, char **envp);
+int		ft_open_pipes(t_data *data, int i);
+void	ft_open_fds(t_data *data);
+
+#endif
