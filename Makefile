@@ -6,13 +6,13 @@
 #    By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/10 07:28:53 by alevasse          #+#    #+#              #
-#    Updated: 2022/08/15 16:23:24 by Anthony          ###   ########.fr        #
+#    Updated: 2022/08/25 22:57:11 by Anthony          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 			= pipex
 
-SRC 			=	src/main.c
+SRC 			=	src/main.c src/ft_path.c
 
 SRC_B 			=	bonus/main_bonus.c
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 10:42:36 by alevasse          #+#    #+#             */
-/*   Updated: 2022/08/22 11:12:22 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/08/25 21:06:06 by Anthony          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include <sys/wait.h>
 # include <errno.h>
+# include <limits.h>
 
 typedef struct s_data
 {
@@ -28,9 +29,9 @@ typedef struct s_data
 	char	**envp;
 	int		heredoc;
 	int		process;
-	int		fds[2];
+	int		fds[3];
 	int		pipes[3];
-	int		*pids;
+	pid_t	*pids;
 }			t_data;
 
 #endif
