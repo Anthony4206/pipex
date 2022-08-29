@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 08:00:43 by alevasse          #+#    #+#             */
-/*   Updated: 2022/08/26 13:40:29 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/08/29 09:50:46 by Anthony          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ t_data	ft_init(int argc, char **argv, char **envp)
 	ret.envp = envp;
 	ret.opts = NULL;
 	ret.cmd_path = NULL;
+	ft_printf("%s\n", ret.argv[1]);
 	ret.fds[0] = open(ret.argv[1], O_RDONLY);
 	if (ret.fds[0] == -1)
 		ft_return_error(&ret, ret.argv[1], strerror(errno));

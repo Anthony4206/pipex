@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/22 10:54:22 by alevasse          #+#    #+#             */
-/*   Updated: 2022/08/26 13:58:31 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/08/26 17:56:48 by Anthony          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,16 +93,16 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	if (argc < 6 && ft_strncmp("here_doc", argv[1], 8))
+	if (argc < 6 && ft_strncmp("here_doc", argv[1], 9) == 0)
 	{
-		ft_printf("Usage: ./pipex <here_doc> <LIMITER> \
-			<cmd1> <cmd2> [cmd_n ->->->] <outfile>\n");
+		ft_printf("Usage: ./pipex <here_doc> <LIMITER> "
+			"<cmd1> <cmd2> [cmd_n ...] <outfile>\n");
 		exit(EXIT_FAILURE);
 	}
 	if (argc < 5)
 	{
-		ft_printf("Usage: \
-			./pipex <infile> <cmd1> <cmd2> [cmd_n ->->->] <outfile>\n");
+		ft_printf("Usage: "
+			"./pipex <infile> <cmd1> <cmd2> [cmd_n ...] <outfile>\n");
 		exit(EXIT_FAILURE);
 	}
 	data = ft_init(argc, argv, envp);

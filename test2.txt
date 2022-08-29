@@ -1,1 +1,11 @@
-Coucou les ptit loup
+total 104
+-rw-r--r--   1 Anthony  staff   2209 26 aoû 17:47 Makefile
+drwxr-xr-x  10 Anthony  staff    320 29 aoû 09:46 bonus
+drwxr-xr-x   3 Anthony  staff     96 26 aoû 17:47 include
+drwxr-xr-x   6 Anthony  staff    192 29 aoû 09:55 libft
+-rwxr-xr-x   1 Anthony  staff  40460 29 aoû 09:55 pipex
+drwxr-xr-x   3 Anthony  staff     96 26 aoû 17:47 pipex.dSYM
+drwxr-xr-x   8 Anthony  staff    256 29 aoû 09:55 src
+-rw-r--r--   1 Anthony  staff    644 26 aoû 17:47 test
+-rwxr-xr-x   1 Anthony  staff      4 29 aoû 09:45 test1.txt
+-rw-r--r--   1 Anthony  staff      0 29 aoû 09:56 test2.txt
