@@ -6,14 +6,19 @@
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 07:42:58 by alevasse          #+#    #+#             */
-/*   Updated: 2022/08/26 13:42:00 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/08/29 14:08:31 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <unistd.h>
+#include <errno.h>
 
 #include "libft.h"
+#include "structs.h"
+
+void	ft_return_error(t_data *data, char *arg, char *msg);
 
 static char	**ft_envp_path(char **envp)
 {
@@ -61,5 +66,6 @@ char	*ft_chr_path(char *cmd, char **envp)
 			return (ft_free_tab(paths), exec_path);
 		free(exec_path);
 	}
+	fprintf(stderr, "Coucou\n");
 	return (ft_free_tab(paths), NULL);
 }

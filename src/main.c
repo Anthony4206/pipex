@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 08:00:43 by alevasse          #+#    #+#             */
-/*   Updated: 2022/08/29 09:50:46 by Anthony          ###   ########.fr       */
+/*   Updated: 2022/08/29 14:02:16 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ t_data	ft_init(int argc, char **argv, char **envp)
 	ret.envp = envp;
 	ret.opts = NULL;
 	ret.cmd_path = NULL;
-	ft_printf("%s\n", ret.argv[1]);
 	ret.fds[0] = open(ret.argv[1], O_RDONLY);
 	if (ret.fds[0] == -1)
 		ft_return_error(&ret, ret.argv[1], strerror(errno));
@@ -77,19 +76,27 @@ t_data	ft_init(int argc, char **argv, char **envp)
 	return (ret);
 }
 
-int	ft_pipex(t_data *data, pid_t pid, char *arg)
+int	ft_pipex(t_data *data, pid_t pid, char *arg, int nb)
 {
 	pid = fork();
 	if (pid == -1)
 		ft_return_error(data, "fork", strerror(errno));
 	if (pid == 0)
 	{
-		dup2(data->fds[0], STDIN_FILENO);
-		dup2(data->fds[1], STDOUT_FILENO);
-		close(data->fds[0]);
-		close(data->fds[1]);
+		if (nb == 0)
+		{
+			dup2(data->fds[0], STDIN_FILENO);
+			dup2(data->p[1], STDOUT_FILENO);
+		}
+		else if (nb == 1)
+		{
+			dup2(data->p[0], STDIN_FILENO);
+			dup2(data->fds[1], STDOUT_FILENO);
+		}
+		close(data->p[0]);
+		close(data->p[1]);
 		data->opts = ft_split(arg, ' ');
-		data->cmd_path = ft_chr_path(data->opts[0], data->envp);
+		data->cmd_path = ft_chr_path(data->opts[0], data->envp, data);
 		if (!data->cmd_path)
 			ft_return_error(data, data->opts[0], "command not found");
 		if (execve(data->cmd_path, data->opts, data->envp) == -1)
@@ -109,8 +116,8 @@ int	main(int argc, char **argv, char **envp)
 		exit(EXIT_FAILURE);
 	}
 	data = ft_init(argc, argv, envp);
-	ft_pipex(&data, data.pids[0], data.argv[2]);
-	ft_pipex(&data, data.pids[1], data.argv[3]);
+	ft_pipex(&data, data.pids[0], data.argv[2], 0);
+	ft_pipex(&data, data.pids[1], data.argv[3], 1);
 	close(data.fds[0]);
 	close(data.fds[1]);
 	close(data.fds[0]);

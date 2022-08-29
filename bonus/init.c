@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Anthony <Anthony@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 08:02:06 by alevasse          #+#    #+#             */
-/*   Updated: 2022/08/29 10:07:05 by Anthony          ###   ########.fr       */
+/*   Updated: 2022/08/29 10:41:15 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,6 @@ int	ft_open_pipes(t_data *data, int i)
 	if (i + 1 == data->process)
 		data->pipes[1] = data->fds[1];
 	else if (pipe(data->pipes) == -1)
-		ft_return_error(&data, "pipe", strerror(errno));	
+		ft_return_err(data, "pipe", strerror(errno));
 	return (0);
 }

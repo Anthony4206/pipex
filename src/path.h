@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_path.h                                          :+:      :+:    :+:   */
+/*   path.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alevasse <alevasse@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 07:48:05 by alevasse          #+#    #+#             */
-/*   Updated: 2022/08/26 08:03:19 by alevasse         ###   ########.fr       */
+/*   Updated: 2022/08/29 13:42:55 by alevasse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PATH_H
 # define PATH_H
 
-char	*ft_chr_path(char *cmd, char **envp);
+char	*ft_chr_path(char *cmd, char **envp, t_data *data);
 
 #endif
